@@ -62,7 +62,7 @@
         packages.default = defaultPackage; # Define the default package for this system
 
         # Define Home Manager modules for configuring the Otter program
-        homeManagerModules.otter =
+        homeManagerModules.brightness =
           {
             config,
             pkgs,
@@ -71,7 +71,7 @@
           }:
           {
             # Options for the Otter program configuration
-            options.program.otter = {
+            options.program.brightness = {
               enable = lib.mkEnableOption "Enable the Otter program"; # Option to enable or disable Otter
 
               package = lib.mkOption {
