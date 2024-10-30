@@ -20,7 +20,6 @@
         ];
       in
       {
-        #        packages.brightness = 
         packages.default =
           let
             rustPlatform = pkgs.rustPlatform;
