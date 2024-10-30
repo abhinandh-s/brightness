@@ -11,6 +11,14 @@ rustPlatform.buildRustPackage rec {
   cargoLock.lockFile = ./Cargo.lock;
   src = pkgs.lib.cleanSource ./.;
 
+  buildInputs = with pkgs; [
+    pkg-config
+    libudev-zero
+    libgudev
+  ];
+
+  nativeBuildInputs = with pkgs; [ pkg-config ];
+
   doCheck = false;
 
   meta = with pkgs.lib; {
