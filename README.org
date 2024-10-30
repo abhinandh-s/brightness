@@ -1,0 +1,16 @@
+* Brightshift
+
+A simple brightness app which uses ddc
+
+Usage: brightness <COMMAND>
+
+Commands:
+  get-device, -d, --detect
+  get-brightness, -g, --get
+  set-brightness, -s, --set 
+  change-brightness, -c, --change 
+  help
+
+Options:
+  -h, --help     Print help
+  -V, --version  Print version
