@@ -24,6 +24,7 @@ jobs:
 
       - name: Build
         run: cargo build --verbose
+
   create-release:
     runs-on: ubuntu-latest
     steps:
