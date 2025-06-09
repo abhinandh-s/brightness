@@ -34,6 +34,6 @@ jobs:
           tag_name: v${{ github.event.inputs.version }}
           name: Release v${{ github.event.inputs.version }}
           body: Manual release for version ${{ github.event.inputs.version }}
-          files: target/release/YOUR_BINARY_NAME
+          files: target/release/brightness
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
