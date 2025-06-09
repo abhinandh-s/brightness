@@ -1,33 +1,37 @@
-name: Release
-
-permissions:
-  contents: write
+name: Manual Release
 
 on:
-  push:
-    tags:
-      - v[0-9]+.*
   workflow_dispatch:
+    inputs:
+      version:
+        description: 'Release version (e.g., 1.0.0)'
+        required: true
+        default: '1.0.0'
 
 jobs:
-  create-release:
+  build-and-release:
     runs-on: ubuntu-latest
-    steps:
-      - uses: actions/checkout@v4
-      - name: Install libudev
-        run: sudo apt-get update && sudo apt-get install -y libudev-dev pkg-config
 
-      - uses: taiki-e/create-gh-release-action@v1
-        with:
-          # changelog: CHANGELOG.md
-          token: ${{ secrets.GITHUB_TOKEN }}
-
-  upload-assets:
-    needs: create-release
-    runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v4
-      - uses: taiki-e/upload-rust-binary-action@v1
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Set up Rust
+        uses: actions/setup-rust@v1
         with:
-          bin: roxide
-          token: ${{ secrets.GITHUB_TOKEN }}
+          rust-version: stable
+
+      - name: Build binary
+        run: cargo build --release
+
+      - name: Create release
+        uses: softprops/action-gh-release@v2
+        with:
+          tag_name: v${{ github.event.inputs.version }}
+          name: Release v${{ github.event.inputs.version }}
+          body: |
+            Manual release for version ${{ github.event.inputs.version }}.
+          files: |
+            target/release/YOUR_BINARY_NAME
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
